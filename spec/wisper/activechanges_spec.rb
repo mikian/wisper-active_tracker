@@ -1,12 +1,12 @@
-describe 'ActiveRecord' do
+describe 'ActiveChanges' do
   let(:listener)    { double('Listener') }
   let(:model_class) { Class.new(Meeting) { include Wisper.model } }
 
   before { Wisper::GlobalListeners.clear }
   before { allow(model_class).to receive(:name).and_return('Meeting') }
 
-  it '.model returns ActiveRecord module' do
-    expect(Wisper.model).to eq Wisper::ActiveRecord::Publisher
+  it '.model returns ActiveChanges module' do
+    expect(Wisper.model).to eq Wisper::ActiveChanges::Publisher
   end
 
   describe '.commit' do # DEPRECATED

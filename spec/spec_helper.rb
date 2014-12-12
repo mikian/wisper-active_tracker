@@ -20,7 +20,7 @@ load File.dirname(__FILE__) + '/support/schema.rb'
 
 require 'support/models'
 
-require 'wisper/activerecord'
+require 'wisper/activechanges'
 
 RSpec.configure do |config|
   config.filter_run :focus

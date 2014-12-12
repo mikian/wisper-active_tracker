@@ -1,8 +1,4 @@
-# Wisper::ActiveRecord
-
-[![Gem Version](https://badge.fury.io/rb/wisper-activerecord.png)](http://badge.fury.io/rb/wisper-activerecord)
-[![Code Climate](https://codeclimate.com/github/krisleech/wisper-activerecord.png)](https://codeclimate.com/github/krisleech/wisper-activerecord)
-[![Build Status](https://travis-ci.org/krisleech/wisper-activerecord.png?branch=master)](https://travis-ci.org/krisleech/wisper-activerecord)
+# Wisper::ActiveChanges
 
 Transparently publish model lifecycle events to subscribers.
 
@@ -13,7 +9,7 @@ Listeners are subscribed to models at runtime.
 ## Installation
 
 ```ruby
-gem 'wisper-activerecord'
+gem 'wisper-activechanges'
 ```
 
 ## Usage
@@ -47,7 +43,7 @@ meeting.subscribe(Auditor.new)
 Subscribe a block to model instances:
 
 ```ruby
-meeting.on(:create_meeting_successful) { |meeting| ... }
+meeting.on(:create_meeting_successful) { |meeting_id, changes| ... }
 ```
 
 Subscribe a listener to _all_ instances of a model:
@@ -74,7 +70,7 @@ To receive an event the listener must implement a method matching the name of
 the event with a single argument, the instance of the model.
 
 ```ruby
-def create_meeting_successful(meeting)
+def create_meeting_successful(meeting_id, changes)
   # ...
 end
 ```
@@ -128,15 +124,15 @@ class Auditor
     @audit = []
   end
 
-  def after_create(subject)
+  def after_create(subject_id, changes)
     push_audit_for('create', subject)
   end
 
-  def after_update(subject)
+  def after_update(subject_id, changes)
     push_audit_for('update', subject)
   end
 
-  def after_destroy(subject)
+  def after_destroy(subject_id, changes)
     push_audit_for('destroy', subject)
   end
 
@@ -179,10 +175,6 @@ Auditor.audit # => [...]
 ```
 
 ## Compatibility
-
-Tested on 1.9.3, 2.x, Rubinius and JRuby for ActiveRecord ~> 3.0 and ~> 4.0
-
-See the CI [build status](https://travis-ci.org/krisleech/wisper-activerecord) for more information.
 
 ## Contributing
 

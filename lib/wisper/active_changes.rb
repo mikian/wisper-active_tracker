@@ -1,12 +1,12 @@
-require "wisper/active_record/version"
-require "wisper/active_record/publisher"
+require "wisper/active_changes/version"
+require "wisper/active_changes/publisher"
 
 module Wisper
   def self.model
-    ::Wisper::ActiveRecord::Publisher
+    ::Wisper::ActiveChanges::Publisher
   end
 
-  module ActiveRecord
+  module ActiveChanges
     def self.extend_all
       ::ActiveRecord::Base.class_eval { include Wisper.model }
     end
