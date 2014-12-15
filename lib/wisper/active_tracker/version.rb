@@ -1,5 +1,5 @@
 module Wisper
-  module ActiveChanges
+  module ActiveTracker
     VERSION = "0.1.0"
   end
 end

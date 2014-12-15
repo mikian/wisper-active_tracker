@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'wisper/active_changes/version'
+require 'wisper/active_tracker/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "wisper-activechanges"
-  spec.version       = Wisper::ActiveChanges::VERSION
+  spec.name          = "wisper-active_tracker"
+  spec.version       = Wisper::ActiveTracker::VERSION
   spec.authors       = ["Mikko Kokkonen"]
   spec.email         = ["mikko@mikian.com"]
   spec.summary       = %q{Subscribe to changes on ActiveRecord models}
   spec.description   = %q{Subscribe to changes on ActiveRecord models}
-  spec.homepage      = "https://github.com/mikian/wisper-activechanges"
+  spec.homepage      = "https://github.com/mikian/wisper-active_tracker"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
