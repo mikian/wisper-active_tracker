@@ -23,29 +23,33 @@ module Wisper
 
       def __track_after_validation_broadcast
         action = new_record? ? 'create' : 'update'
-        broadcast("#{action}_#{self.class.model_name.param_key}_failed", args) unless errors.empty?
+        broadcast("#{action}_#{self.class.model_name.param_key}_failed", __tracker_args_broadcast) unless errors.empty?
       end
 
       def __track_after_create_broadcast
-        broadcast(:after_create, args)
-        broadcast("create_#{self.class.model_name.param_key}_successful", args)
+        broadcast(:after_create, __tracker_args_broadcast)
+        broadcast("create_#{self.class.model_name.param_key}_successful", __tracker_args_broadcast)
       end
 
       def __track_after_update_broadcast
-        broadcast(:after_update, args)
-        broadcast("update_#{self.class.model_name.param_key}_successful", args)
+        broadcast(:after_update, __tracker_args_broadcast)
+        broadcast("update_#{self.class.model_name.param_key}_successful", __tracker_args_broadcast)
       end
 
       def __track_after_destroy_broadcast
-        broadcast(:after_destroy, args)
-        broadcast("destroy_#{self.class.model_name.param_key}_successful", args)
+        broadcast(:after_destroy, __tracker_args_broadcast)
+        broadcast("destroy_#{self.class.model_name.param_key}_successful", __tracker_args_broadcast)
       end
 
       def __track_after_rollback_broadcast
-        broadcast(:after_rollback, args)
+        broadcast(:after_rollback, __tracker_args_broadcast)
       end
 
-      def args
+      def __track_before_destroy_broadcast
+        broadcast(:before_destroy, __tracker_args_broadcast)
+      end
+
+      def __tracker_args_broadcast
         args = {}
 
         args[:tenant] = Apartment::Tenant.current if defined?(Apartment)
