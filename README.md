@@ -1,15 +1,13 @@
-# Wisper::ActiveChanges
+# Wisper::ActiveTracker
 
 Transparently publish model lifecycle events to subscribers.
-
 Using Wisper events is a better alternative to ActiveRecord callbacks and Observers.
-
 Listeners are subscribed to models at runtime.
 
 ## Installation
 
 ```ruby
-gem 'wisper-activechanges'
+gem 'wisper-active_tracker'
 ```
 
 ## Usage
@@ -18,17 +16,17 @@ gem 'wisper-activechanges'
 
 ```ruby
 class Meeting < ActiveRecord::Base
-  include Wisper.model
+  include Wisper::ActiveTracker
 
   # ...
 end
 ```
 
 If you wish all models to broadcast events without having to explicitly include
-`Wisper.model` add the following to an initializer:
+`Wisper::ActiveTracker` add the following to an initializer:
 
 ```ruby
-Wisper::ActiveRecord.extend_all
+Wisper::ActiveTracker.extend_all
 ```
 
 ### Subscribing
@@ -57,11 +55,14 @@ Please refer to the [Wisper README](https://github.com/krisleech/wisper) for ful
 The events which are automatically broadcast are:
 
 * `after_create`
-* `after_create`
-* `after_destroy`
 * `create_<model_name>_{successful, failed}`
+* `after_update`
 * `update_<model_name>_{successful, failed}`
+* `before_create`
+* `after_destroy`
 * `destroy_<model_name>_successful`
+* `after_commit`
+* `<model_name>_committed`
 * `after_rollback`
 
 ### Reacting to Events
@@ -172,16 +173,4 @@ meeting.save
 
 ```ruby
 Auditor.audit # => [...]
-```
-
-## Compatibility
-
-## Contributing
-
-Please submit a Pull Request with specs.
-
-### Running the specs
-
-```
-bundle exec rspec
 ```
