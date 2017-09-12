@@ -57,7 +57,7 @@ module Wisper
       def __tracker_args_broadcast
         args = {
           id: id,
-          global_id: to_global_id
+          global_id: (id.present? ? to_global_id : nil)
         }
 
         args.merge(default_tracker_args) if respond_to?(:default_tracker_args)
